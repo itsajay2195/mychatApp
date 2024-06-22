@@ -68,3 +68,25 @@ app.post('/login', async (req, res) => {
     res.status(500).json({message: 'Error loggin In'});
   }
 });
+
+app.get('/users/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const users = await User.find({_id: {$ne: userId}});
+    res.status(200).json(users);
+  } catch (error) {
+    console.log('error fetching users', error);
+    res.status(500).json({message: 'Error in fetching users '});
+  }
+});
+
+app.post('/sendRequest', async (req, res) => {
+  const {senderId, receiverId, message} = req.body;
+  const receiver = await User.findById(receiverId);
+  if (!receiver) {
+    return res.status(404).json({message: 'receiver not found'});
+  }
+  receiver.requests.push({from: senderId, message});
+  await receiver.save();
+  res.status(200).json({message: 'request sent successfully'});
+});
