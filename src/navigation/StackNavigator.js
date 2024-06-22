@@ -11,6 +11,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import PeopleScreen from '../screens/PeopleScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {AuthContext} from '../AuthContext';
+import RequestChatroom from '../screens/RequestChatroom';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -89,6 +90,11 @@ const StackNavigator = () => {
           name="People"
           component={PeopleScreen}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Request"
+          component={RequestChatroom}
+          options={{headerShown: true}}
         />
         {/* <Stack.Screen name="Request" component={RequestChatRoom} />
         <Stack.Screen name="ChatRoom" component={ChatRoom} /> */}
